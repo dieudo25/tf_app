@@ -51,7 +51,11 @@ INSTALLED_APPS = [
     "wagtail.admin",
     "wagtail.core",
     "modelcluster",
+
+    "rest_framework",
     "taggit",
+
+    "blog",
 ]
 
 MIDDLEWARE = [
