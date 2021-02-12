@@ -144,4 +144,4 @@ STATIC_URL = '/static/'
 
 MEDIA_ROOT = str(BASE_DIR / 'media')
 MEDIA_URL = '/media/'
-WAGTAIL_SITE_NAME = 'twahifoundation'
+WAGTAIL_SITE_NAME = 'Twahifoundation'

@@ -1,6 +1,7 @@
 
 from rest_framework import serializers
 
+from .fields import TagField
 from .models import BlogCategory, PostPage, Tag
 
 
@@ -9,12 +10,16 @@ class PostPageSerializer(serializers.ModelSerializer):
         PostPageserializer
         Serialize the blog.PostPage model instances to target format
     """
+
+    api_tags = TagField(source='tags')
+    
     class Meta:
         model = PostPage
         fields = (
             "id",
             "slug",
             "title",
+            "api_tags",
         )
 
 
