@@ -11,7 +11,7 @@ class PostPageSerializer(serializers.ModelSerializer):
         Serialize the blog.PostPage model instances to target format
     """
 
-    api_tags = TagField(source='tags')
+    api_tags = TagField(source='tags') # tags => field of the PostPage model
     
     class Meta:
         model = PostPage

@@ -17,7 +17,7 @@ class TagField(Field):
                     "name": tag.name,
                     "slug": tag.slug,
                     "id": tag.id
-                } for tag in tags.all
+                } for tag in tags.all()
             ]
         except Exception:
             return[]
