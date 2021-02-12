@@ -21,7 +21,7 @@ from wagtail.core import urls as wagtail_urls
 from wagtail.admin import urls as wagtailadmin_urls
 from wagtail.documents import urls as wagtaildocs_urls
 
-from blog.api import blog_router
+from blog.api import blog_router, cms_api_router
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -31,6 +31,7 @@ urlpatterns = [
     path('documents/', include(wagtaildocs_urls)),
 
     path('api/blog/', include(blog_router.urls)),
+    path('api/cms/', cms_api_router.urls),
 
     # For anything not caught by a more specific rule above, hand over to
     # Wagtail's serving mechanism

@@ -2,7 +2,9 @@ from django.db import models
 
 from modelcluster.fields import ParentalKey
 from modelcluster.tags import ClusterTaggableManager
+from rest_framework import serializers
 from taggit.models import Tag as TaggitTag, TaggedItemBase
+from wagtail.api import APIField
 from wagtail.core.models import Page
 from wagtail.core.fields import StreamField
 from wagtail.images.edit_handlers import ImageChooserPanel
@@ -10,6 +12,7 @@ from wagtail.admin.edit_handlers import  FieldPanel, InlinePanel, StreamFieldPan
 from wagtail.snippets.models import register_snippet
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 
+from .fields import TagField
 from .blocks import BodyBlock
 
 class BlogPage(Page):
@@ -51,6 +54,17 @@ class PostPage(Page):
         FieldPanel("tags"),
         StreamFieldPanel("body"),
     ]
+
+    api_fields = (
+        "header_image",
+        "body",
+        APIField("owner"),
+        APIField("api_tags", serializer=TagField(source="tags")),
+        APIField(
+            "pub_date",
+            serializer=serializers.DateTimeField(format="%d %B %Y", source="last_published_at")
+        ),
+    )
 
 
 class PostPageBlogCategory(models.Model):

@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     "modelcluster",
     "taggit",
 
+    "wagtail.api.v2",
     "rest_framework",
 
     "blog",
@@ -144,4 +145,11 @@ STATIC_URL = '/static/'
 
 MEDIA_ROOT = str(BASE_DIR / 'media')
 MEDIA_URL = '/media/'
+
 WAGTAIL_SITE_NAME = 'Twahifoundation'
+
+
+REST_FRAMEWORK = {
+"DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
+"PAGE_SIZE": 20,
+}
