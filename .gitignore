@@ -1,0 +1,11 @@
+tf_app/__pycache__/wsgi.cpython-39.pyc
+
+### Django ###
+*.log
+*.pot
+*.pyc
+__pycache__/
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+media
