@@ -7,6 +7,7 @@ from taggit.models import Tag as TaggitTag, TaggedItemBase
 from wagtail.api import APIField
 from wagtail.core.models import Page
 from wagtail.core.fields import StreamField
+from wagtail.images.api.fields import ImageRenditionField
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.admin.edit_handlers import  FieldPanel, InlinePanel, StreamFieldPanel
 from wagtail.snippets.models import register_snippet
@@ -33,7 +34,8 @@ class PostPage(Page):
         Model of the PostPage
         fields :
             header_image: Front image of the post 
-            tags: tags of the post
+            body: StreamField using BodyBlock blocks
+            tags: tags of the post relations to Tag model through PostPage model
     """
     header_image = models.ForeignKey(
         "wagtailimages.Image",
@@ -47,6 +49,7 @@ class PostPage(Page):
 
     tags = ClusterTaggableManager(through="blog.PostPageTag", blank=True)
 
+    # Used to display the field in wagtail admin
     content_panels = Page.content_panels + [
         ImageChooserPanel("header_image"),
         # The categories relationship is already defined in PostPageBlogCategory.page.related_name
@@ -55,8 +58,13 @@ class PostPage(Page):
         StreamFieldPanel("body"),
     ]
 
+    # API Fields that will be dissplay in RestAPI
     api_fields = (
-        "header_image",
+        APIField(
+            "header_image_url",
+            serializer=ImageRenditionField("max-1000x800", # We use ImageRenditionField to control the headers_image size
+            source="header_image"),
+        ),
         "body",
         APIField("owner"),
         APIField("api_tags", serializer=TagField(source="tags")),
@@ -71,6 +79,9 @@ class PostPageBlogCategory(models.Model):
     """
         Intermediary model beetwen PostPage and BlogCategory Model
         So the connections between PostPage and a snippet BlogCategory can be stored in the db.
+        fields :
+            page: relations to PostPage model using wagtail ParentalKey
+            blog_category: relations to BlogCategory model using ForeignKey
     """
 
     page = ParentalKey("blog.PostPage", on_delete=models.CASCADE, related_name="categories")
@@ -84,6 +95,12 @@ class PostPageBlogCategory(models.Model):
         unique_together = ("page", "blog_category")  #add db constraints to avoid duplicate records
 
 class PostPageTag(TaggedItemBase):
+    """
+        Intermediary model beetwen PostPage and Tag Model
+        So the connections between PostPage and a snippet Tag can be stored in the db.
+        fields :
+            content_object: relations to PostPage model using wagtail ParentalKey
+    """
     content_object = ParentalKey("PostPage", related_name="post_tags")
 
 @register_snippet
