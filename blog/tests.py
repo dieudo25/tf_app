@@ -1,5 +1,9 @@
+import json
+import factory
+
 from django.test import TestCase
 from wagtail.core.models import Site
+from wagtail_factories.factories import ImageFactory
 from blog.factories import (
     BlogCategoryFactory,
     PostPageBlogCategoryFactory,
@@ -152,5 +156,75 @@ class TestView(TestCase):
         # Test if the count of the fetched data is equals to 0
         assert response_data["count"] == 0
 
+class TestPostPageAPI(TestCase):
+    """
+        Test PostPageAPI
+    """
+    def setUp(self):
+        self.blog_page = BlogPageFactory.create()
 
+        self.site = Site.objects.all().first()
+        self.site.root_page = self.blog_page
+        self.site.save()
+    
+    def test_post_page(self):
 
+        # Arrange
+        img_1 = ImageFactory(file=factory.django.ImageField(width=1000, height=1000))
+        img_2 = ImageFactory(file=factory.django.ImageField(width=1000, height=1000))
+        img_3 = ImageFactory(file=factory.django.ImageField(width=1000, height=1000))
+
+        body_data = [
+            {
+                'type': 'h1',
+                'value': 'The Zen of Wagtail'
+            },
+            {
+                'type': 'paragraph',
+                'value':   '<p>Wagtail has been born out of many years of experience building '
+                            'websites, learning approaches that work and ones that don’t, and '
+                            'striking a balance between power and simplicity, structure and '
+                            'flexibility. We hope you’ll find that Wagtail is in that sweet '
+                            'spot.</p>'
+            },
+            {
+                'type': 'image_carousel',
+                'value': [img_1.pk, img_2.pk]
+            },
+            {
+                'type': 'image_text',
+                'value': {
+                    'image': img_3.pk,
+                    'reverse': False,
+                    'text':     '<p>Wagtail is not an instant website in a box.</p><p>You '
+                                'can’t make a beautiful website by plugging off-the-shelf '
+                                'modules together - expect to write code.</p>'
+                }
+            },
+            {
+                'type': 'image_text',
+                'value': {
+                    'image': img_2.pk,
+                    'reverse': True,
+                    'text':     '<p>A CMS should get information out of an editor’s head '
+                                'and into a database, as efficiently and directly as '
+                                'possible.</p>'
+                }
+            }
+        ]
+
+        post_page = PostPageFactory.create(
+            parent=self.blog_page, body=json.dumps(body_data), header_image=img_3
+        )
+
+        # Act
+        response = self.client.get(f"/api/cms/pages/{post_page.pk}/")
+        response_data = response.json()
+
+        # Assert
+        # Test if the fetched post body (StreamField) field data return the correct block
+        assert response_data["body"][1]["value"] == body_data[1]["value"]
+
+        # Test the get_api_representation
+        assert response_data["body"][3]["type"] == "image_text"
+        assert response_data["body"][3]["value"]["image"]["width"] == 800
