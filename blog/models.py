@@ -29,6 +29,7 @@ class BlogPage(Page):
             content_panels: specify witch attributs will be display in Admin Page
             max_count: Max number of object instance
             subpage_types: List of the accepted child page type
+            parent_page_type: List of the accepted parent page type
     """
 
     description = models.CharField(max_length=50, blank=True)
@@ -43,6 +44,9 @@ class BlogPage(Page):
     # Limite the child page creation with the one mentionned in the list
     subpage_types = [
         'blog.PostPage',
+    ]
+    parent_page_type = [
+        'home.HomePage'
     ]
 
 
