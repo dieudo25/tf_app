@@ -13,7 +13,7 @@ from wagtail.admin.edit_handlers import  FieldPanel, InlinePanel, StreamFieldPan
 from wagtail.snippets.models import register_snippet
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 
-from .fields import TagField
+from .fields import TagField, CategoryField
 from .blocks import BodyBlock
 
 class BlogPage(Page):
@@ -24,6 +24,7 @@ class BlogPage(Page):
     """
     description = models.CharField(max_length=50, blank=True)
 
+    # Used to display the field in wagtail admin
     content_panels = Page.content_panels + [
         FieldPanel("description", classname="full"),
     ]
@@ -32,7 +33,7 @@ class BlogPage(Page):
 class PostPage(Page):
     """ 
         Model of the PostPage
-        fields :
+        Parameters :
             header_image: Front image of the post 
             body: StreamField using BodyBlock blocks
             tags: tags of the post relations to Tag model through PostPage model
@@ -72,6 +73,7 @@ class PostPage(Page):
             "pub_date",
             serializer=serializers.DateTimeField(format="%d %B %Y", source="last_published_at")
         ),
+        APIField("api_categories", serializer=CategoryField(source="categories")),
     )
 
 
@@ -79,7 +81,7 @@ class PostPageBlogCategory(models.Model):
     """
         Intermediary model beetwen PostPage and BlogCategory Model
         So the connections between PostPage and a snippet BlogCategory can be stored in the db.
-        fields :
+        Parameters :
             page: relations to PostPage model using wagtail ParentalKey
             blog_category: relations to BlogCategory model using ForeignKey
     """
@@ -98,7 +100,7 @@ class PostPageTag(TaggedItemBase):
     """
         Intermediary model beetwen PostPage and Tag Model
         So the connections between PostPage and a snippet Tag can be stored in the db.
-        fields :
+        Parameters :
             content_object: relations to PostPage model using wagtail ParentalKey
     """
     content_object = ParentalKey("PostPage", related_name="post_tags")
@@ -109,6 +111,9 @@ class BlogCategory(models.Model):
         Model of BlogCategory
         Use as a wagtail snippet with register_snippet
         So that we can add/edit/delete the model instances in snippets of Wagtail admin.
+        Parameters:
+            name: namae of the category
+            slug: slug of the category model instance
     """
     name = models.CharField(max_length=255)
     slug = models.SlugField(unique=True, max_length=80)
