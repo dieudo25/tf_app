@@ -16,6 +16,7 @@ from wagtail.admin.edit_handlers import  (
 )
 from wagtail.snippets.models import register_snippet
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
+from wagtail.search import index
 
 from .fields import TagField, CategoryField
 from .blocks import BodyBlock
@@ -25,6 +26,9 @@ class BlogPage(Page):
         Model of the BlogPage => index page of the PostPage
         parameters :
             description: Description of the page 
+            content_panels: specify witch attributs will be display in Admin Page
+            max_count: Max number of object instance
+            subpage_types: List of the accepted child page type
     """
 
     description = models.CharField(max_length=50, blank=True)
@@ -34,15 +38,30 @@ class BlogPage(Page):
         FieldPanel("description", classname="full"),
     ]
 
+    max_count = 1 # Nombre maximum de l'objet
+
+    # Limite the child page creation with the one mentionned in the list
+    subpage_types = [
+        'blog.PostPage',
+    ]
+
 
 class PostPage(Page):
     """ 
         Model of the PostPage
         Parameters :
+            parent_page_types: List of the accepted parent type page
+            subpage_types: List of the accepted child page type
             header_image: Front image of the post 
             body: StreamField using BodyBlock blocks
             tags: tags of the post relations to Tag model through PostPage model
+            content_panels: specify witch attributs will be display in Admin Page
+            api_fields : Specify witch attribut will be displayed for API
+
     """
+
+    parent_page_types = ["blog.BlogPage"]
+    subpage_types = [] # This object (page) can not create child pages
 
     header_image = models.ForeignKey(
         "wagtailimages.Image",
@@ -87,9 +106,11 @@ class PostPageBlogCategory(models.Model):
     """
         Intermediary model beetwen PostPage and BlogCategory Model
         So the connections between PostPage and a snippet BlogCategory can be stored in the db.
-        Parameters :
+        Attribut :
             page: relations to PostPage model using wagtail ParentalKey
             blog_category: relations to BlogCategory model using ForeignKey
+            panels: specify witch attributs will be display in Admin
+
     """
 
     page = ParentalKey("blog.PostPage", on_delete=models.CASCADE, related_name="categories")
@@ -113,14 +134,16 @@ class PostPageTag(TaggedItemBase):
     content_object = ParentalKey("PostPage", related_name="post_tags")
 
 @register_snippet
-class BlogCategory(models.Model):
+class BlogCategory(index.Indexed, models.Model):
     """
         Model of BlogCategory
         Use as a wagtail snippet with register_snippet
         So that we can add/edit/delete the model instances in snippets of Wagtail admin.
-        Parameters:
+        Attributs:
             name: namae of the category
             slug: slug of the category model instance
+            panels: specify witch attributs will be display in Admin
+            search_fields: specify the attribut used for searching this snippet
     """
 
     name = models.CharField(max_length=255)
@@ -129,6 +152,10 @@ class BlogCategory(models.Model):
     panels = [
         FieldPanel("name"),
         FieldPanel("slug"),
+    ]
+
+    search_fields = [
+        index.SearchField("name", partial_match=True)
     ]
     
     def __str__(self):
