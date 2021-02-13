@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     "modelcluster",
     "taggit",
 
+    'debug_toolbar',
     "django_extensions",
     "rest_framework",
 
