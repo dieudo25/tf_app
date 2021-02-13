@@ -229,3 +229,75 @@ class TestPostPageAPI(TestCase):
         # Test the get_api_representation
         assert response_data["body"][3]["type"] == "image_text"
         assert response_data["body"][3]["value"]["image"]["width"] == 800
+
+    def test_post_page_category(self):
+
+        # Arrange
+        post_page = PostPageFactory.create(parent=self.blog_page,)
+        category_1 = BlogCategoryFactory.create()
+        PostPageBlogCategoryFactory.create(
+            page=post_page,
+            blog_category=category_1,
+        )
+        category_2 = BlogCategoryFactory.create()
+        PostPageBlogCategoryFactory.create(
+            page=post_page,
+            blog_category=category_2,
+        )
+
+        # Act
+        # Fetch post from API using post_page
+        response = self.client.get(f"/api/cms/pages/{post_page.pk}/")
+        response_data = response.json()
+
+        # Assert
+        # Test if the category of the post is equals category_1
+        assert response_data["api_categories"][0]["name"] == category_1.name
+        assert response_data["api_categories"][0]["slug"] == category_1.slug
+
+        # Act
+        # Fetch post from API using post_page
+        response = self.client.get(f"/api/cms/pages/{post_page.pk}/")
+        response_data = response.json()
+
+        # Assert
+        # Test if the length of the fetched post categories is equal to 2
+        assert len(response_data["api_categories"]) == 2
+
+    def test_post_page_tag(self):
+
+        # Arrange
+        post_page = PostPageFactory.create(parent=self.blog_page)
+        tag_1 = TagFactory.create()
+        PostPageTagFactory(
+            content_object=post_page,
+            tag=tag_1,
+        )
+        tag_2 = TagFactory.create()
+        PostPageTagFactory(
+            content_object=post_page,
+            tag=tag_2,
+        )
+
+        # Act
+        # Fetch post from api using post_page
+        response = self.client.get(f"/api/cms/pages/{post_page.pk}/")
+        response_data = response.json()
+
+        # Assert
+        # Test if the tag of the post is equals to tag_1
+        assert response_data["api_tags"][0]["name"] == tag_1.name
+        assert response_data["api_tags"][0]["slug"] == tag_1.slug
+
+        # Act
+        # Fetch post from api using post_page
+        response = self.client.get(f"/api/cms/pages/{post_page.pk}/")
+        response_data = response.json()
+
+        # Assert
+        # Test the length of the fetched post tags is equal to 2
+        assert len(response_data["api_tags"]) == 2
+
+        
+
+

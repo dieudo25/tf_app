@@ -61,8 +61,8 @@ class BlogCategoryFactory(DjangoModelFactory):
     class Meta:
         model = BlogCategory
 
-    name = FuzzyText(length=6)
-    slug = LazyAttribute(lambda o: slugify(o.name))
+    name = FuzzyText(length=6) # Create random name for the object instance
+    slug = LazyAttribute(lambda o: slugify(o.name)) # Lazy field => wait for name to be defined and defined its own value depending on name value
 
 
 class PostPageTagFactory(DjangoModelFactory):
