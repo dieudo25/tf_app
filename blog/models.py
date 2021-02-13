@@ -9,7 +9,11 @@ from wagtail.core.models import Page
 from wagtail.core.fields import StreamField
 from wagtail.images.api.fields import ImageRenditionField
 from wagtail.images.edit_handlers import ImageChooserPanel
-from wagtail.admin.edit_handlers import  FieldPanel, InlinePanel, StreamFieldPanel
+from wagtail.admin.edit_handlers import  (
+    FieldPanel,
+    InlinePanel,
+    StreamFieldPanel,
+)
 from wagtail.snippets.models import register_snippet
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 
@@ -19,9 +23,10 @@ from .blocks import BodyBlock
 class BlogPage(Page):
     """
         Model of the BlogPage => index page of the PostPage
-        fields :
-            description: Description of th epage 
+        parameters :
+            description: Description of the page 
     """
+
     description = models.CharField(max_length=50, blank=True)
 
     # Used to display the field in wagtail admin
@@ -38,6 +43,7 @@ class PostPage(Page):
             body: StreamField using BodyBlock blocks
             tags: tags of the post relations to Tag model through PostPage model
     """
+
     header_image = models.ForeignKey(
         "wagtailimages.Image",
         null=True,
@@ -103,6 +109,7 @@ class PostPageTag(TaggedItemBase):
         Parameters :
             content_object: relations to PostPage model using wagtail ParentalKey
     """
+
     content_object = ParentalKey("PostPage", related_name="post_tags")
 
 @register_snippet
@@ -115,6 +122,7 @@ class BlogCategory(models.Model):
             name: namae of the category
             slug: slug of the category model instance
     """
+
     name = models.CharField(max_length=255)
     slug = models.SlugField(unique=True, max_length=80)
 
@@ -140,5 +148,6 @@ class Tag(TaggitTag):
         Model of Tag => Proxy model to declare Taggit as a wagtail snippet
         Extends Taggit, the built-in support for tag in wagtail
     """
+    
     class Meta:
         proxy = True
