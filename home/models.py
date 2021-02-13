@@ -1,16 +1,19 @@
 from django.db import models
 
-from wagtail.core.models import Page
+from modelcluster.fields import ParentalKey
+from wagtail.api import APIField
+from wagtail.core.fields import StreamField
+from wagtail.core.models import Page, Orderable
 from wagtail.admin.edit_handlers import (
     FieldPanel,
     MultiFieldPanel,
     PageChooserPanel,
     StreamFieldPanel,
-    ObjectList,
-    TabbedInterface,
+    InlinePanel,
 )
 from wagtail.images.edit_handlers import ImageChooserPanel
 
+from blog import blocks
 
 class HomePage(Page):
     """
@@ -33,8 +36,7 @@ class HomePage(Page):
     ]
     max_count = 1   # Can only have one instance of home page
 
-
-    # Banner section
+    ######### Banner section #########
     banner_title = models.CharField(max_length=100, blank=True, null=True)
     banner_subtitle = models.CharField(max_length=100, blank=True, null=True)
     banner_image = models.ForeignKey(
@@ -44,14 +46,7 @@ class HomePage(Page):
         on_delete=models.SET_NULL,
         related_name="+",
     )
-    banner_cta_1 = models.ForeignKey(
-        "wagtailcore.Page",
-        null=True,  # True = the button is optional, False = it is required
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name="+",
-    )
-    banner_cta_2 = models.ForeignKey(
+    button = models.ForeignKey(
         "wagtailcore.Page",
         null=True,  # True = the button is optional, False = it is required
         blank=True,
@@ -59,21 +54,21 @@ class HomePage(Page):
         related_name="+",
     )
 
-    banner_panels = [
+    content = StreamField(
+        [
+            ("body", blocks.BodyBlock())
+        ],
+        null=True,
+        blank=True
+    )
+
+
+    content_panels = Page.content_panels + [
         MultiFieldPanel([
             FieldPanel('banner_title'),
             FieldPanel('banner_subtitle'),
             ImageChooserPanel('banner_image'),
-            PageChooserPanel('banner_cta_1'),
-            PageChooserPanel('banner_cta_2'),
-        ], heading="Banner options"),
+            PageChooserPanel('button'),
+        ], heading="Banner"),
+        StreamFieldPanel("content"),
     ]
-
-    # Edit wagtail panels
-    edit_handler = TabbedInterface(
-        [
-            ObjectList(banner_panels, heading="Banner"), # Add sidebar tab in home page edit
-        ]
-    )
-
-
