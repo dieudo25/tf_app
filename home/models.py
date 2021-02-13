@@ -13,7 +13,7 @@ from wagtail.admin.edit_handlers import (
 )
 from wagtail.images.edit_handlers import ImageChooserPanel
 
-from blog import blocks
+from stream import blocks
 
 class HomePage(Page):
     """
@@ -56,7 +56,8 @@ class HomePage(Page):
 
     content = StreamField(
         [
-            ("body", blocks.BodyBlock())
+            ("ImageText", blocks.ImageTextBlock()),
+            ("body", blocks.BodyBlock()),
         ],
         null=True,
         blank=True

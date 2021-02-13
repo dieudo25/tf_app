@@ -6,4 +6,8 @@ from .models import HomePage
 class HomePageSerializer(serializers.ModelSerializer):
     class Meta:
         model = HomePage
-        fields = "__all__"
+        fields = (
+            "id",
+            "slug",
+            "title",
+        )

@@ -20,6 +20,9 @@ class PostPageSerializer(serializers.ModelSerializer):
             "slug",
             "title",
             "api_tags",
+            # "body",
+            # "first_published_at",
+            # "last_published_at",
         )
 
 
