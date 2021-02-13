@@ -174,6 +174,7 @@ class TestPostPageAPI(TestCase):
         img_2 = ImageFactory(file=factory.django.ImageField(width=1000, height=1000))
         img_3 = ImageFactory(file=factory.django.ImageField(width=1000, height=1000))
 
+        # Data for StreamField
         body_data = [
             {
                 'type': 'h1',
@@ -214,7 +215,7 @@ class TestPostPageAPI(TestCase):
         ]
 
         post_page = PostPageFactory.create(
-            parent=self.blog_page, body=json.dumps(body_data), header_image=img_3
+            parent=self.blog_page, body=json.dumps(body_data), header_image=img_3   # json.dumps() => dump data in json format
         )
 
         # Act
