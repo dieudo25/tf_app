@@ -50,10 +50,11 @@ INSTALLED_APPS = [
     "wagtail.search",
     "wagtail.admin",
     "wagtail.core",
+    "wagtail.api.v2",
     "modelcluster",
     "taggit",
 
-    "wagtail.api.v2",
+    "django_extensions",
     "rest_framework",
 
     "blog",
