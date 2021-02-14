@@ -25,5 +25,35 @@ services:
       - POSTGRES_USER=tf_admin
       - POSTGRES_PASSWORD=tf_2021
 
+  frontend:
+    build:
+      context: .
+      dockerfile: ./compose/local/node/Dockerfile
+    image: tf_app_frontend
+    command: npm start
+    volumes:
+      - .:/app
+      - /app/frontend/node_modules
+    ports:
+      - 3000:3000
+    depends_on:
+      - web
+    stdin_open: true
+
+  storybook:
+    build:
+      context: .
+      dockerfile: ./compose/local/node/Dockerfile
+    image: tf_app_storybook
+    command: npm run storybook
+    volumes:
+      - .:/app
+      - /app/frontend/node_modules
+    ports:
+      - 6006:6006
+    depends_on:
+      - web
+    stdin_open: true
+
 volumes:
   postgres_data:
