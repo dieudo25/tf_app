@@ -162,7 +162,6 @@ class TestPostPageAPI(TestCase):
     """
     def setUp(self):
         self.blog_page = BlogPageFactory.create()
-
         self.site = Site.objects.all().first()
         self.site.root_page = self.blog_page
         self.site.save()

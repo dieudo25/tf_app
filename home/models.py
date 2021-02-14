@@ -12,6 +12,7 @@ from wagtail.admin.edit_handlers import (
     StreamFieldPanel,
     InlinePanel,
 )
+from wagtail.images.api.fields import ImageRenditionField
 from wagtail.images.edit_handlers import ImageChooserPanel
 
 from stream import blocks
@@ -55,7 +56,7 @@ class HomePage(Page):
         related_name="+",
     )
 
-    content = StreamField(
+    body = StreamField(
         [
             ("ImageText", blocks.ImageTextBlock()),
             ("body", blocks.BodyBlock()),
@@ -72,16 +73,20 @@ class HomePage(Page):
             ImageChooserPanel('banner_image'),
             PageChooserPanel('button'),
         ], heading="Banner"),
-        StreamFieldPanel("content"),
+        StreamFieldPanel("body"),
     ]
 
     # API Fields that will be dissplay in RestAPI
     api_fields = (
         "banner_title",
         "banner_subtitle",
-        "banner_image",
+        APIField(
+            "banner_image_url",
+            serializer=ImageRenditionField("max-1000x800", # We use ImageRenditionField to control the headers_image size
+            source="banner_image"),
+        ),
         "button",
-        "content",
+        "body",
         APIField("owner"),
         APIField(
             "last_update",
