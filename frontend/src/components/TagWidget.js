@@ -1,9 +1,10 @@
 import React from "react";
-import "../index.scss";
+import axios from "axios";
 
 class TagWidget extends React.Component {
   constructor(props) {
     super(props);
+    // Initial state
     this.state = {
       tags: [],
       loading: true,
@@ -11,24 +12,14 @@ class TagWidget extends React.Component {
   }
 
   componentDidMount() {
-    const tags = [
-      {
-        slug: "wagtail",
-        name: "Wagtail",
-      },
-      {
-        slug: "django",
-        name: "Django",
-      },
-      {
-        slug: "react",
-        name: "React",
-      },
-    ];
-
-    this.setState({
-      tags,
-      loading: false,
+    // Send Ajax request
+    axios.get("/api/blog/tags/").then((res) => {
+      let tags = res.data.results;
+      // Set fetched data to the component state
+      this.setState({
+        tags,
+        loading: false,
+      });
     });
   }
 
