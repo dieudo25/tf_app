@@ -23,7 +23,7 @@ class HomePage(Page):
         parameters:
             max_count: Max number of object instance
             subpage_types: List of the accepted child page type
-            parent_page_type: List of the accepted parent page type
+            parent_page_types: List of the accepted parent page type
     """
 
     # Limite the child page creation with the one mentionned in the list
@@ -33,7 +33,7 @@ class HomePage(Page):
     ] 
 
     # The home page can only live under the root page ( another way of limiting creation) 
-    parent_page_type = [
+    parent_page_types = [
         'wagtailcore.Page'
     ]
     max_count = 1   # Can only have one instance of home page

@@ -28,7 +28,7 @@ class ProjectIndexPage(Page):
     subpage_types = [
         'project.ProjectPage',
     ]
-    parent_page_type = [
+    parent_page_types = [
         'home.HomePage'
     ]
 
