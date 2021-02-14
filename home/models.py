@@ -1,6 +1,7 @@
 from django.db import models
 
 from modelcluster.fields import ParentalKey
+from rest_framework import serializers
 from wagtail.api import APIField
 from wagtail.core.fields import StreamField
 from wagtail.core.models import Page, Orderable
@@ -73,3 +74,21 @@ class HomePage(Page):
         ], heading="Banner"),
         StreamFieldPanel("content"),
     ]
+
+    # API Fields that will be dissplay in RestAPI
+    api_fields = (
+        "banner_title",
+        "banner_subtitle",
+        "banner_image",
+        "button",
+        "content",
+        APIField("owner"),
+        APIField(
+            "last_update",
+            serializer=serializers.DateTimeField(format="%d %B %Y", source="last_published_at")
+        ),
+        APIField(
+            "pub_date",
+            serializer=serializers.DateTimeField(format="%d %B %Y", source="first_published_at")
+        ),
+    )
