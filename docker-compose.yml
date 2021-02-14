@@ -30,7 +30,7 @@ services:
       context: .
       dockerfile: ./compose/local/node/Dockerfile
     image: tf_app_frontend
-    command: npm start
+    command: yarn start
     volumes:
       - .:/app
       - /app/frontend/node_modules
@@ -45,7 +45,7 @@ services:
       context: .
       dockerfile: ./compose/local/node/Dockerfile
     image: tf_app_storybook
-    command: npm run storybook
+    command: yarn storybook
     volumes:
       - .:/app
       - /app/frontend/node_modules
