@@ -113,6 +113,18 @@ const mockPost = (mockAxios) => {
     pub_date: 1597720114000,
     body: mockStreamFieldData,
   });
+
+  mockAxios.onGet("/api/cms/pages/2/").reply(200, {
+    id: 2,
+    title: "Post Page 2",
+    excerpt: "tag: event",
+    header_image_url: {
+      url: cardImage2,
+    },
+    // py datetime.strftime('%s000')
+    pub_date: 1597020114000,
+    body: mockStreamFieldData,
+  });
 };
 
 // Tag.js

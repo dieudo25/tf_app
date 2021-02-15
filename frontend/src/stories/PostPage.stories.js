@@ -1,9 +1,13 @@
 import React from "react";
 
+import { MemoryRouter } from "react-router-dom";
+import { Route, Switch } from "react-router";
+
 import { PostPage } from "../components/PostPage";
 
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
+
 import { mockPost, mockTag } from "./mockUtils";
 
 export default {
@@ -11,10 +15,30 @@ export default {
   component: PostPage,
 };
 
-export const Example = () => {
+export const Example1 = () => {
   const mock = new MockAdapter(axios);
   mockPost(mock);
   mockTag(mock);
 
-  return <PostPage />;
+  return (
+    <MemoryRouter initialEntries={["/post/5/"]}>
+      <Switch>
+        <Route path="/post/:id" component={PostPage} />
+      </Switch>
+    </MemoryRouter>
+  );
+};
+
+export const Example2 = () => {
+  const mock = new MockAdapter(axios);
+  mockPost(mock);
+  mockTag(mock);
+
+  return (
+    <MemoryRouter initialEntries={["/post/2/"]}>
+      <Switch>
+        <Route path="/post/:id" component={PostPage} />
+      </Switch>
+    </MemoryRouter>
+  );
 };

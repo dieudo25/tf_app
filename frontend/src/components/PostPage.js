@@ -12,7 +12,7 @@ class PostPage extends React.Component {
         <TopNav />
         <Container>
           <Row>
-            <PostDetail />
+            <PostDetail {...this.props} />
             <SideBar />
           </Row>
         </Container>
