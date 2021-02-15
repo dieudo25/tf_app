@@ -14,7 +14,9 @@ class PostDetail extends React.Component {
   componentDidMount() {
     // We build a class component because
     // we need to send Ajax request in componentDidMount method.
-    axios.get("/api/cms/pages/5/").then((res) => {
+    const pk = this.props.match.params.id;
+
+    axios.get(`/api/cms/pages/${pk}/`).then((res) => {
       const post = res.data;
       this.setState({
         post,
