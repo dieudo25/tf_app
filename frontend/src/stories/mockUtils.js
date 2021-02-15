@@ -5,26 +5,7 @@ import cardImage from "./assets/image_1.jpg";
 import cardImage2 from "./assets/image_2.jpg";
 import cardImage3 from "./assets/image_3.jpg";
 
-const mockTag = (mockAxios) => {
-  const API_REQUEST = "/api/blog/tags/";
-  mockAxios.onGet(API_REQUEST).reply(200, {
-    results: [
-      {
-        slug: "wagtail",
-        name: "Wagtail",
-      },
-      {
-        slug: "django",
-        name: "Django",
-      },
-      {
-        slug: "react",
-        name: "React",
-      },
-    ],
-  });
-};
-
+// StramField.js
 const richtext_1 = `
 <p>
   &quot;Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam,
@@ -119,4 +100,40 @@ const mockStreamFieldData = [
   },
 ];
 
-export { mockTag, mockStreamFieldData };
+// PostDetail.js
+const mockPost = (mockAxios) => {
+  mockAxios.onGet("/api/cms/pages/5/").reply(200, {
+    id: 5,
+    title: "Post Page 1",
+    excerpt: "category: charity",
+    header_image_url: {
+      url: cardImage,
+    },
+    // py datetime.strftime('%s000')
+    pub_date: 1597720114000,
+    body: mockStreamFieldData,
+  });
+};
+
+// Tag.js
+const mockTag = (mockAxios) => {
+  const API_REQUEST = "/api/blog/tags/";
+  mockAxios.onGet(API_REQUEST).reply(200, {
+    results: [
+      {
+        slug: "wagtail",
+        name: "Wagtail",
+      },
+      {
+        slug: "django",
+        name: "Django",
+      },
+      {
+        slug: "react",
+        name: "React",
+      },
+    ],
+  });
+};
+
+export { mockTag, mockStreamFieldData, mockPost };
