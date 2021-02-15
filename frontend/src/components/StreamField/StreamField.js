@@ -4,7 +4,7 @@ import { ThumbnailGallery } from "./ThumbnailGallery";
 import { ImageText } from "./ImageText";
 import { ImageCarousel } from "./ImageCarousel";
 
-function BodyBlock(props) {
+function StreamField(props) {
   // We build a StreamField Component, which iterate the props.value
   const streamField = props.value;
   let html = [];
@@ -69,4 +69,4 @@ function BodyBlock(props) {
   return html;
 }
 
-export { BodyBlock };
+export { StreamField };

@@ -7,7 +7,7 @@ function ImageCarousel(props) {
       <Carousel>
         {props.value.map((item, index) => (
           <Carousel.Item key={`${index}.${item}`}>
-            <img className="d-block w-100" src={item.url} alt="" />
+            <img className="d-block text-center w-100" src={item.url} alt="" />
           </Carousel.Item>
         ))}
       </Carousel>

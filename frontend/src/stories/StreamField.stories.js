@@ -1,12 +1,12 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import { BodyBlock, StreamField } from "../components/StreamField/BodyBlock";
+import { StreamField } from "../components/StreamField/StreamField";
 
-import { mockBodyBlockData } from "./mockUtils";
+import { mockStreamFieldData } from "./mockUtils";
 
 export default {
-  title: "BodyBlockField",
-  component: BodyBlock,
+  title: "StreamField",
+  component: StreamField,
 };
 
 export const Example = () => {
@@ -14,7 +14,7 @@ export const Example = () => {
     <Container>
       <Row>
         <Col md={8}>
-          <BodyBlock value={mockBodyBlockData} />
+          <StreamField value={mockStreamFieldData} />
         </Col>
       </Row>
     </Container>

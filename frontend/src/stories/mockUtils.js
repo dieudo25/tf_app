@@ -48,7 +48,7 @@ const richtext_2 = `
 </p>
 `;
 
-const mockBodyBlockData = [
+const mockStreamFieldData = [
   {
     type: "h1",
     value: "Post Title",
@@ -119,4 +119,4 @@ const mockBodyBlockData = [
   },
 ];
 
-export { mockTag, mockBodyBlockData };
+export { mockTag, mockStreamFieldData };
