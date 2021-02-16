@@ -134,6 +134,19 @@ const mockPost = (mockAxios) => {
       count: 0,
     });
 
+  mockAxios
+    .onGet(`/api/blog/posts/?limit=2&offset=0&category=charity&tag=*`)
+    .reply(200, {
+      results: [{ id: 1 }, { id: 3 }],
+      count: 2,
+    });
+  mockAxios
+    .onGet(`/api/blog/posts/?limit=2&offset=0&category=life&tag=*`)
+    .reply(200, {
+      results: [],
+      count: 0,
+    });
+
   // Post
   mockAxios.onGet("/api/cms/pages/1/").reply(200, {
     id: 1,
@@ -217,4 +230,21 @@ const mockTag = (mockAxios) => {
   });
 };
 
-export { mockTag, mockStreamFieldData, mockPost };
+// Category.js
+const mockCategory = (mockAxios) => {
+  const API_REQUEST = "/api/blog/categories/";
+  mockAxios.onGet(API_REQUEST).reply(200, {
+    results: [
+      {
+        slug: "programming",
+        name: "Programming",
+      },
+      {
+        slug: "life",
+        name: "Life",
+      },
+    ],
+  });
+};
+
+export { mockTag, mockStreamFieldData, mockPost, mockCategory };
