@@ -24,7 +24,7 @@ class CategoryWidget extends React.Component {
   render() {
     let content;
     if (this.state.loading) {
-      content = "'Loading...";
+      content = "Loading...";
     } else {
       content = (
         <div className="row">

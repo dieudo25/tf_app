@@ -34,6 +34,7 @@ export const Example2 = () => {
   const mock = new MockAdapter(axios);
   mockPost(mock);
   mockTag(mock);
+  mockCategory(mock);
 
   return (
     <MemoryRouter initialEntries={["/post/2/"]}>

@@ -1,5 +1,7 @@
 import React from "react";
+
 import { Container, Row } from "react-bootstrap";
+
 import { TopNav } from "./TopNav";
 import { Footer } from "./Footer";
 import { SideBar } from "./SideBar";
