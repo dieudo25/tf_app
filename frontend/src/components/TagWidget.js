@@ -29,10 +29,10 @@ class TagWidget extends React.Component {
   render() {
     let content;
     if (this.state.loading) {
-      content = "loading...";
+      content = "Loading...";
     } else {
       content = this.state.tags.map((tag) => (
-        <Link href={`/tag/${tag.slug}`} key={tag.slug}>
+        <Link to={`/tag/${tag.slug}`} key={tag.slug}>
           <span className="badge badge-secondary">{tag.name}</span>{" "}
         </Link>
       ));
