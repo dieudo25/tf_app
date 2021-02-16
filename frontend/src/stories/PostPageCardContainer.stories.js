@@ -17,7 +17,6 @@ export default {
 export const Pagination = () => {
   const mock = new MockAdapter(axios);
   mockPost(mock);
-  /* mockTag(mock); */
 
   return (
     <Container>
@@ -39,7 +38,6 @@ export const Pagination = () => {
 export const TagFilter = () => {
   const mock = new MockAdapter(axios);
   mockPost(mock);
-  /* mockTag(mock); */
 
   return (
     <Container>

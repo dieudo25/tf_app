@@ -22,6 +22,14 @@ class PostPageCardContainer extends React.Component {
     this.getPosts();
   }
 
+  componentDidUpdate(prevProps) {
+    // Si la location (react-router) des ancien props !== au nouveau props
+    // Alors je relance la fonction getPost()
+    if (prevProps.location !== this.props.location) {
+      this.getPosts();
+    }
+  }
+
   getCurPage() {
     // return the page number from the url
     const page = this.props.match.params.page;
