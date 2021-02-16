@@ -1,5 +1,8 @@
 import React from "react";
+
 import axios from "axios";
+
+import { Link } from "react-router-dom";
 
 class TagWidget extends React.Component {
   constructor(props) {
@@ -29,9 +32,9 @@ class TagWidget extends React.Component {
       content = "loading...";
     } else {
       content = this.state.tags.map((tag) => (
-        <a href={`/tag/${tag.slug}`} key={tag.slug}>
+        <Link href={`/tag/${tag.slug}`} key={tag.slug}>
           <span className="badge badge-secondary">{tag.name}</span>{" "}
-        </a>
+        </Link>
       ));
     }
     return (
