@@ -135,7 +135,7 @@ const mockPost = (mockAxios) => {
     });
 
   mockAxios
-    .onGet(`/api/blog/posts/?limit=2&offset=0&category=charity&tag=*`)
+    .onGet(`/api/blog/posts/?limit=2&offset=0&category=programming&tag=*`)
     .reply(200, {
       results: [{ id: 1 }, { id: 3 }],
       count: 2,
@@ -199,7 +199,7 @@ const mockPost = (mockAxios) => {
   mockAxios.onGet("/api/cms/pages/5/").reply(200, {
     id: 5,
     title: "Post Page 5",
-    excerpt: "category: charity",
+    excerpt: "category: programming",
     header_image_url: {
       url: cardImage,
     },
@@ -233,6 +233,7 @@ const mockTag = (mockAxios) => {
 // Category.js
 const mockCategory = (mockAxios) => {
   const API_REQUEST = "/api/blog/categories/";
+
   mockAxios.onGet(API_REQUEST).reply(200, {
     results: [
       {

@@ -1,5 +1,5 @@
-import Router from "react";
-import { MemoryRouter, MemoryUser } from "react-router-dom";
+import React from "react";
+import { MemoryRouter } from "react-router-dom";
 
 import App from "../App";
 
@@ -20,7 +20,7 @@ export const Example = () => {
   mockCategory(mock);
 
   return (
-    <MemoryRouter initialEntries={["/3"]}>
+    <MemoryRouter initialEntries={["/"]}>
       <App />
     </MemoryRouter>
   );

@@ -1,13 +1,14 @@
 import React from "react";
+
 import { Route, Switch } from "react-router";
 import { MemoryRouter } from "react-router-dom";
 import { Container, Row } from "react-bootstrap";
 
+import { PostPageCardContainer } from "../components/PostPageCardContainer";
+
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
-
-import { PostPageCardContainer } from "../components/PostPageCardContainer";
-import { mockPost, mockTag } from "./mockUtils";
+import { mockPost } from "./mockUtils";
 
 export default {
   title: "PostPageCardContainer",
@@ -25,6 +26,10 @@ export const Pagination = () => {
           <Switch>
             <Route
               path="/tag/:tag/:page([\d]+)?"
+              component={PostPageCardContainer}
+            />
+            <Route
+              path="/category/:category/:page([\d]+)?"
               component={PostPageCardContainer}
             />
             <Route path="/:page([\d]+)?" component={PostPageCardContainer} />
@@ -46,6 +51,35 @@ export const TagFilter = () => {
           <Switch>
             <Route
               path="/tag/:tag/:page([\d]+)?"
+              component={PostPageCardContainer}
+            />
+            <Route
+              path="/category/:category/:page([\d]+)?"
+              component={PostPageCardContainer}
+            />
+            <Route path="/:page([\d]+)?" component={PostPageCardContainer} />
+          </Switch>
+        </MemoryRouter>
+      </Row>
+    </Container>
+  );
+};
+
+export const CategoryFilter = () => {
+  const mock = new MockAdapter(axios);
+  mockPost(mock);
+
+  return (
+    <Container>
+      <Row>
+        <MemoryRouter initialEntries={["/category/programming"]}>
+          <Switch>
+            <Route
+              path="/tag/:tag/:page([\d]+)?"
+              component={PostPageCardContainer}
+            />
+            <Route
+              path="/category/:category/:page([\d]+)?"
               component={PostPageCardContainer}
             />
             <Route path="/:page([\d]+)?" component={PostPageCardContainer} />

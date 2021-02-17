@@ -1,16 +1,16 @@
 import React from "react";
-import { Route, Switch } from "react-router";
+import { Router, Route, Switch } from "react-router";
 import { Container, Row } from "react-bootstrap";
 import { BlogPage } from "./components/BlogPage";
 import { PostPage } from "./components/PostPage";
 
 function App() {
-  return(
+  return (
     <Switch>
       <Route path="/post/:id([\d]+)" component={PostPage} />
       <Route path="/tag/:tag/:page([\d]+)?" component={BlogPage} />
-      <Route path="/:page/:page([\d]+)?" component={BlogPage} />
-      <Route 
+      <Route path="/:page([\d]+)?" component={BlogPage} />
+      <Route
         path="*"
         component={() => (
           <Container>
