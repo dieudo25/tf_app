@@ -28,7 +28,7 @@ test("Test Category Link", async () => {
   expect(elTag).toHaveClass("card-header");
   const { getByText } = within(elTag.parentNode);
 
-  // The test would wait and check if there is Programming text appare in
+  // The test would wait and check if there is Programming text appear in
   // the Category widget. If it exists, it would click the link
   // (fireEvent.click(el))
   await waitFor(() => expect(getByText("Programming")).toBeInTheDocument());

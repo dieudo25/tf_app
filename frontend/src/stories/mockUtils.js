@@ -174,7 +174,7 @@ const mockPost = (mockAxios) => {
 
   mockAxios.onGet(`/api/cms/pages/3/`).reply(200, {
     id: 3,
-    title: "Love React 3",
+    title: "Post Page  3",
     excerpt: "category: programming",
     header_image_url: {
       url: cardImage,

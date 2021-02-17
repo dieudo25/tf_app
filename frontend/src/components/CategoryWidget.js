@@ -16,7 +16,7 @@ class CategoryWidget extends React.Component {
       const categories = res.data.results;
       this.setState({
         categories,
-        loading: false,
+        loading: false
       });
     });
   }
