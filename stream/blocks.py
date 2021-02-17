@@ -5,6 +5,19 @@ from wagtail.images.blocks import ImageChooserBlock
 
 
 
+class HeadingsBlock(blocks.StreamBlock):
+    """
+        HeadingsBlock
+    """
+
+    h1 = blocks.CharBlock()
+    h2 = blocks.CharBlock()
+    h3 = blocks.CharBlock()
+    h4 = blocks.CharBlock()
+    h5 = blocks.CharBlock()
+    h6 = blocks.CharBlock()
+
+
 class CustomImageChooserBlock(ImageChooserBlock):
     """
         CustomImageChooserBlocks
@@ -25,8 +38,6 @@ class CustomImageChooserBlock(ImageChooserBlock):
             and add a new represetation to the API field based on ImageRenditionField
         """
         return ImageRenditionField(self.rendition).to_representation(value)
-
-
 class ImageTextBlock(blocks.StructBlock):
     """
         ImageTextBlock
@@ -36,15 +47,71 @@ class ImageTextBlock(blocks.StructBlock):
     text = blocks.RichTextBlock()
     image = CustomImageChooserBlock(rendition="width-800")
 
+class TwoTextBlock(blocks.StructBlock):
+    """
+        ImageTextBlock
+    """
+
+    text_1 = blocks.RichTextBlock()
+    text_2 = blocks.RichTextBlock()
+
+
+class ThreeTextBlock(blocks.StructBlock):
+    text_1 = blocks.RichTextBlock()
+    text_2 = blocks.RichTextBlock()
+    text_3 = blocks.RichTextBlock()
+
+class FourTextBlock(blocks.StructBlock):
+    text_1 = blocks.RichTextBlock()
+    text_2 = blocks.RichTextBlock()
+    text_3 = blocks.RichTextBlock()
+    text_4 = blocks.RichTextBlock()
+
+class TwoColumnsStreamBlock(blocks.StreamBlock):
+    image_text = ImageTextBlock()
+    two_text = TwoTextBlock()
+    
+
+class ThreeColumnsStreamBlock(blocks.StreamBlock):
+    three = ThreeTextBlock()
+    
+
+class FourColumnsStreamBlock(blocks.StreamBlock):
+    four_text = FourTextBlock()
+    
+
+class ColumnStreamBlock(blocks.StreamBlock):
+    """
+        ColumnStreamBlock
+    """
+
+    two_columns = TwoColumnsStreamBlock()
+    three_columns = ThreeColumnsStreamBlock()
+    four_columns = FourColumnsStreamBlock()
+
+
+class CTABlock(blocks.StructBlock):
+
+
+    """
+        CTABlock
+    """
+
+    title = blocks.CharBlock(required=True)
+    sub_title = blocks.CharBlock(required=False)
+    button = blocks.PageChooserBlock(required=False)
+
 
 class BodyBlock(blocks.StreamBlock):
     """
         BodyBlock
     """
 
-    h1 = blocks.CharBlock()
-    h2 = blocks.CharBlock()
+    column = ColumnStreamBlock()
+    headings = HeadingsBlock()
     paragraph = blocks.RichTextBlock()
-    image_text = ImageTextBlock()
+    two_column = TwoColumnsStreamBlock()
+    three_column = ThreeColumnsStreamBlock()
+    four_column = FourColumnsStreamBlock()
     image_carousel = blocks.ListBlock(CustomImageChooserBlock())
     thumbnail_gallery = blocks.ListBlock(CustomImageChooserBlock())

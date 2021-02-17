@@ -8,7 +8,7 @@ function App() {
   return (
     <Switch>
       <Route path="/post/:id([\d]+)" component={PostPage} />
-      <Route path="/category/:category/:page([\d]+)?" component={BlogPage}/>
+      <Route path="/category/:category/:page([\d]+)?" component={BlogPage} />
       <Route path="/tag/:tag/:page([\d]+)?" component={BlogPage} />
       <Route path="/:page([\d]+)?" component={BlogPage} />
       <Route
