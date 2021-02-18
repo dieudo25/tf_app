@@ -20,7 +20,6 @@ from wagtail.search import index
 
 from .fields import TagField, CategoryField
 from stream.blocks import (
-    OneColumnStreamBlock,
     TwoColumnsStreamBlock,
     ThreeColumnsStreamBlock,
     FourColumnsStreamBlock,
