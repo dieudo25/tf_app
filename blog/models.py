@@ -19,7 +19,9 @@ from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.search import index
 
 from .fields import TagField, CategoryField
-from stream.blocks import BodyStreamBlock
+from stream.blocks import (
+    BodyStreamBlock
+)
 
 class BlogPage(Page):
     """

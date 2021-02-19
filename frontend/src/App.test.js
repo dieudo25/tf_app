@@ -45,3 +45,56 @@ test("Test Category Link", async () => {
     expect(screen.getByText("Post Page 3")).toBeInTheDocument()
   );
 });
+
+test("Test Pagination", async () => {
+  const mock = new MockAdapter(axios);
+  mockPost(mock);
+  mockCategory(mock);
+  mockTag(mock);
+
+  render(
+    <MemoryRouter initialEntries={["/"]}>
+      <App />
+    </MemoryRouter>
+  );
+
+  await waitFor(() =>
+    expect(screen.getByText("Post Page 1")).toBeInTheDocument()
+  );
+
+  const el = screen.getByText("Next");
+
+  fireEvent.click(el);
+
+  await waitFor(() =>
+    expect(screen.getByText("Post Page 3")).toBeInTheDocument()
+  );
+  await waitFor(() =>
+    expect(screen.getByText("Post Page 4")).toBeInTheDocument()
+  );
+});
+
+test("Check Post Link", async () => {
+  const mock = new MockAdapter(axios);
+  mockPost(mock);
+  mockCategory(mock);
+  mockTag(mock);
+
+  render(
+    <MemoryRouter initialEntries={["/"]}>
+      <App />
+    </MemoryRouter>
+  );
+
+  // click on post link
+  await waitFor(() =>
+    expect(screen.getByText("Post Page 1")).toBeInTheDocument()
+  );
+  const el = screen.getByText("Post Page 1");
+  fireEvent.click(el);
+
+  // Check if the content of the post is render
+  await waitFor(() =>
+    expect(screen.getByText("Post Title")).toBeInTheDocument()
+  );
+});
