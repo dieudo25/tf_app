@@ -36,8 +36,28 @@ class ImageTextBlock(blocks.StructBlock):
     text = blocks.RichTextBlock()
     image = CustomImageChooserBlock(rendition="width-800")
 
+class AnimatedSliderBlock(blocks.StructBlock):
+    """
+        AnimatedSliderBlockc
+    """
 
-class BodyBlock(blocks.StreamBlock):
+    title = blocks.CharBlock(required=True)
+    description = blocks.RichTextBlock()
+    button_text = blocks.CharBlock(required=False)
+    button = blocks.PageChooserBlock(required=False)
+    image = CustomImageChooserBlock(required=True)
+
+class SliderStreamBlock(blocks.StreamBlock):
+    """
+        SliderBlock
+    """
+
+    image_slider = blocks.ListBlock(CustomImageChooserBlock())
+    animated_slider = blocks.ListBlock(AnimatedSliderBlock())
+
+
+
+class BodyStreamBlock(blocks.StreamBlock):
     """
         BodyBlock
     """
@@ -46,5 +66,5 @@ class BodyBlock(blocks.StreamBlock):
     h2 = blocks.CharBlock()
     paragraph = blocks.RichTextBlock()
     image_text = ImageTextBlock()
-    image_carousel = blocks.ListBlock(CustomImageChooserBlock())
+    slider = SliderStreamBlock()
     thumbnail_gallery = blocks.ListBlock(CustomImageChooserBlock())

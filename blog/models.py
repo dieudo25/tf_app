@@ -19,7 +19,7 @@ from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.search import index
 
 from .fields import TagField, CategoryField
-from stream.blocks import BodyBlock
+from stream.blocks import BodyStreamBlock
 
 class BlogPage(Page):
     """
@@ -57,7 +57,7 @@ class PostPage(Page):
             parent_page_types: List of the accepted parent type page
             subpage_types: List of the accepted child page type
             header_image: Front image of the post 
-            body: StreamField using BodyBlock blocks
+            body: StreamField using BodyStreamBlock blocks
             tags: tags of the post relations to Tag model through PostPage model
             content_panels: specify witch attributs will be display in Admin Page
             api_fields : Specify witch attribut will be displayed for API
@@ -75,7 +75,7 @@ class PostPage(Page):
         related_name="+",
     )
 
-    body = StreamField(BodyBlock(), blank=True)
+    body = StreamField(BodyStreamBlock(), blank=True)
 
     tags = ClusterTaggableManager(through="blog.PostPageTag", blank=True)
 

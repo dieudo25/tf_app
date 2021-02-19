@@ -3,6 +3,7 @@ import { sanitize } from "dompurify";
 import { ThumbnailGallery } from "./ThumbnailGallery";
 import { ImageText } from "./ImageText";
 import { ImageCarousel } from "./ImageCarousel";
+import { AnimatedSlider } from "./AnimatedSlider";
 
 function StreamField(props) {
   // We build a StreamField Component, which iterate the props.value
@@ -59,6 +60,14 @@ function StreamField(props) {
           // so they would use the field.value to render HTML.
           // The key is used to distinguish child in a list React keys
           <ImageCarousel value={field.value} key={`${i}.${field.type}`} />
+        );
+        break;
+      case "animated_slider":
+        html.push(
+          // pass field.value to the child Component props,
+          // so they would use the field.value to render HTML.
+          // The key is used to distinguish child in a list React keys
+          <AnimatedSlider value={field.value} key={`${i}.${field.type}`} />
         );
         break;
       default:

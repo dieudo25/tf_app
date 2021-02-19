@@ -59,7 +59,7 @@ class HomePage(Page):
     body = StreamField(
         [
             ("ImageText", blocks.ImageTextBlock()),
-            ("body", blocks.BodyBlock()),
+            ("body", blocks.BodyStreamBlock()),
         ],
         null=True,
         blank=True
