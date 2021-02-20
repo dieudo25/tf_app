@@ -38,27 +38,8 @@ class HomePage(Page):
     ]
     max_count = 1   # Can only have one instance of home page
 
-    ######### Banner section #########
-    banner_title = models.CharField(max_length=100, blank=True, null=True)
-    banner_subtitle = models.CharField(max_length=100, blank=True, null=True)
-    banner_image = models.ForeignKey(
-        "wagtailimages.Image",
-        null=True,
-        blank=False,
-        on_delete=models.SET_NULL,
-        related_name="+",
-    )
-    button = models.ForeignKey(
-        "wagtailcore.Page",
-        null=True,  # True = the button is optional, False = it is required
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name="+",
-    )
-
     body = StreamField(
         [
-            ("ImageText", blocks.ImageTextBlock()),
             ("body", blocks.BodyStreamBlock()),
         ],
         null=True,
@@ -66,26 +47,12 @@ class HomePage(Page):
     )
 
 
-    content_panels = Page.content_panels + [
-        MultiFieldPanel([
-            FieldPanel('banner_title'),
-            FieldPanel('banner_subtitle'),
-            ImageChooserPanel('banner_image'),
-            PageChooserPanel('button'),
-        ], heading="Banner"),
-        StreamFieldPanel("body"),
-    ]
+    content_panels = Page.content_panels + [StreamFieldPanel("body")]
+       
+
 
     # API Fields that will be dissplay in RestAPI
     api_fields = (
-        "banner_title",
-        "banner_subtitle",
-        APIField(
-            "banner_image_url",
-            serializer=ImageRenditionField("max-1000x800", # We use ImageRenditionField to control the headers_image size
-            source="banner_image"),
-        ),
-        "button",
         "body",
         APIField("owner"),
         APIField(

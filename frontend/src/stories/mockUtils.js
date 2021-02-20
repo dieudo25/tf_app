@@ -29,6 +29,40 @@ const richtext_2 = `
 </p>
 `;
 
+const mockHomePageStreamFieldData = [
+  {
+    type: "animated_slider",
+    value: [
+      {
+        title: "Slider 1",
+        description:
+          "<p>&quot;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut</p>",
+        button_text: "button 1",
+        button: 3,
+        image: {
+          url: cardImage,
+          width: 640,
+          height: 427,
+          alt: "tim-marshall-cAtzHUz7Z8g-unsplash.jpg",
+        },
+      },
+      {
+        title: "Slider 2",
+        description:
+          "<p>&quot;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut</p>",
+        button_text: "button 2",
+        button: 4,
+        image: {
+          url: cardImage3,
+          width: 640,
+          height: 427,
+          alt: "image 2",
+        },
+      },
+    ],
+  },
+];
+
 const mockStreamFieldData = [
   {
     type: "h1",
@@ -130,6 +164,16 @@ const mockStreamFieldData = [
     ],
   },
 ];
+
+// HomePage.js
+const mockHomePage = (mockAxios) => {
+  mockAxios.onGet("/api/cms/pages/6/").reply(200, {
+    id: 6,
+    title: "Home Page",
+    pub_date: 1597720114000,
+    body: mockHomePageStreamFieldData,
+  });
+};
 
 // PostDetail.js
 const mockPost = (mockAxios) => {
@@ -265,7 +309,7 @@ const mockTag = (mockAxios) => {
 const mockCategory = (mockAxios) => {
   const API_REQUEST = "/api/blog/categories/";
 
-  mockAxios.onGet(API_REQUEST).reply(200, {
+  mockAxios.onGet(API_REQUEST).reply(2000, {
     results: [
       {
         slug: "programming",
@@ -279,4 +323,11 @@ const mockCategory = (mockAxios) => {
   });
 };
 
-export { mockTag, mockStreamFieldData, mockPost, mockCategory };
+export {
+  mockTag,
+  mockStreamFieldData,
+  mockHomePageStreamFieldData,
+  mockPost,
+  mockCategory,
+  mockHomePage,
+};
