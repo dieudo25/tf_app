@@ -29,7 +29,7 @@ class HomePage extends React.Component {
       const home_page = this.state.home_page;
 
       return (
-        <div className="col-md-8">
+        <div className="col-12">
           <StreamField value={home_page.body} />
         </div>
       );
