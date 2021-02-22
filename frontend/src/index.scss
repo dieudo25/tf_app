@@ -1,1 +1,80 @@
 @import "~bootstrap/scss/bootstrap";
+@import url("https://fonts.googleapis.com/css2?family=Catamaran:wght@200;300;400;500;600;700;800;900&display=swap");
+
+// SLIDE SLICK
+
+#root {
+  .slick-active {
+    .single-banner {
+      .banner-text {
+        animation-name: slideFadeInUp;
+        animation-duration: 1.2s;
+        animation-timing-function: ease-in-out;
+      }
+    }
+  }
+
+  .slick-dots {
+    position: absolute;
+    bottom: 25px;
+    list-style: none;
+    display: block;
+    text-align: center;
+    padding: 0;
+    width: 100%;
+
+    li {
+      position: relative;
+      display: inline-block;
+      margin: 0px 25px;
+      padding: 0;
+      cursor: pointer;
+
+      button {
+        position: relative;
+        background-color: #fff;
+        opacity: 0.25;
+        width: 50px;
+        height: 3px;
+        padding: 0;
+        font-size: 0;
+      }
+    }
+
+    li.slick-active button {
+      color: #fff;
+      opacity: 0.75;
+    }
+  }
+
+  // ANIMATION
+  @-webkit-keyframes slideFadeInUp {
+    // Fade in and Slide Up the element
+    from {
+      opacity: 0;
+      -webkit-transform: translateY(100px);
+      transform: translateY(100px);
+    }
+    to {
+      opacity: 1;
+      -webkit-transform: none;
+      transform: none;
+    }
+  }
+
+  @keyframes slideFadeInUp {
+    // Fade in and Slide Up the element
+    from {
+      opacity: 0;
+      -webkit-transform: translateY(100px);
+      transform: translateY(100px);
+      transform: translate(-50%, -25%);
+    }
+    to {
+      opacity: 1;
+      -webkit-transform: none;
+      transform: none;
+      transform: translate(-50%, -50%);
+    }
+  }
+}

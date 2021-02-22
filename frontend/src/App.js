@@ -1,6 +1,7 @@
 import React from "react";
 import { Route, Switch } from "react-router";
 import { Container, Row } from "react-bootstrap";
+import { HomePage } from "./components/HomePage";
 import { BlogPage } from "./components/BlogPage";
 import { PostPage } from "./components/PostPage";
 
@@ -10,7 +11,8 @@ function App() {
       <Route path="/post/:id([\d]+)" component={PostPage} />
       <Route path="/category/:category/:page([\d]+)?" component={BlogPage} />
       <Route path="/tag/:tag/:page([\d]+)?" component={BlogPage} />
-      <Route path="/:page([\d]+)?" component={BlogPage} />
+      <Route path="/blogpage" component={BlogPage} />
+      <Route path="/" component={HomePage} />
       <Route
         path="*"
         component={() => (

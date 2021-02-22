@@ -132,3 +132,6 @@ class BodyStreamBlock(blocks.StreamBlock):
     column = ColumnStreamBlock()
     slider = SliderStreamBlock()
     thumbnail_gallery = blocks.ListBlock(CustomImageChooserBlock())
+    two_columns = TwoColumnsStreamBlock()
+    three_columns = ThreeColumnsStreamBlock()
+    four_columns = FourColumnsStreamBlock()

@@ -31,33 +31,38 @@ const richtext_2 = `
 
 const mockHomePageStreamFieldData = [
   {
-    type: "animated_slider",
+    type: "slider",
     value: [
       {
-        title: "Slider 1",
-        description:
-          "<p>&quot;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut</p>",
-        button_text: "button 1",
-        button: 3,
-        image: {
-          url: cardImage,
-          width: 640,
-          height: 427,
-          alt: "tim-marshall-cAtzHUz7Z8g-unsplash.jpg",
-        },
-      },
-      {
-        title: "Slider 2",
-        description:
-          "<p>&quot;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut</p>",
-        button_text: "button 2",
-        button: 4,
-        image: {
-          url: cardImage3,
-          width: 640,
-          height: 427,
-          alt: "image 2",
-        },
+        type: "animated_slider",
+        value: [
+          {
+            title: "Slider 1",
+            description:
+              "<p>&quot;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut</p>",
+            button_text: "button 1",
+            button: 3,
+            image: {
+              url: cardImage,
+              width: 640,
+              height: 427,
+              alt: "tim-marshall-cAtzHUz7Z8g-unsplash.jpg",
+            },
+          },
+          {
+            title: "Slider 2",
+            description:
+              "<p>&quot;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut</p>",
+            button_text: "button 2",
+            button: 4,
+            image: {
+              url: cardImage3,
+              width: 640,
+              height: 427,
+              alt: "image 2",
+            },
+          },
+        ],
       },
     ],
   },
@@ -119,47 +124,52 @@ const mockStreamFieldData = [
     ],
   },
   {
-    type: "image_carousel",
+    type: "slider",
     value: [
       {
-        url: cardImage2,
+        type: "image_carousel",
+        value: [
+          {
+            url: cardImage2,
+          },
+          {
+            url: cardImage3,
+          },
+          {
+            url: cardImage2,
+          },
+        ],
       },
       {
-        url: cardImage3,
-      },
-      {
-        url: cardImage2,
-      },
-    ],
-  },
-  {
-    type: "animated_slider",
-    value: [
-      {
-        title: "Slider 1",
-        description:
-          "<p>&quot;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut</p>",
-        button_text: "button 1",
-        button: 3,
-        image: {
-          url: cardImage,
-          width: 640,
-          height: 427,
-          alt: "tim-marshall-cAtzHUz7Z8g-unsplash.jpg",
-        },
-      },
-      {
-        title: "Slider 2",
-        description:
-          "<p>&quot;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut</p>",
-        button_text: "button 2",
-        button: 4,
-        image: {
-          url: cardImage3,
-          width: 640,
-          height: 427,
-          alt: "image 2",
-        },
+        type: "animated_slider",
+        value: [
+          {
+            title: "Slider 1",
+            description:
+              "<p>&quot;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut</p>",
+            button_text: "button 1",
+            button: 3,
+            image: {
+              url: cardImage,
+              width: 640,
+              height: 427,
+              alt: "tim-marshall-cAtzHUz7Z8g-unsplash.jpg",
+            },
+          },
+          {
+            title: "Slider 2",
+            description:
+              "<p>&quot;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut</p>",
+            button_text: "button 2",
+            button: 4,
+            image: {
+              url: cardImage3,
+              width: 640,
+              height: 427,
+              alt: "image 2",
+            },
+          },
+        ],
       },
     ],
   },

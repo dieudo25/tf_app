@@ -1,6 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { Spinner } from "react-bootstrap";
+import styled from "styled-components";
+
+const Centered = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 600px;
+`;
 
 class PostPageCard extends React.Component {
   constructor(props) {
@@ -24,12 +33,13 @@ class PostPageCard extends React.Component {
     const dateStr = new Date(data.pub_date).toLocaleString();
 
     return (
-      <div className="card mb-4">
+      <div className="card mb-4" style={{ height: "600px" }}>
         <Link to={`/post/${data.id}`}>
           <img
             src={data.header_image_url.url}
             className="card-img-top"
             alt=""
+            style={{ height: "400px" }}
           />
         </Link>
         <div className="card-body">
@@ -48,7 +58,13 @@ class PostPageCard extends React.Component {
 
   render() {
     if (this.state.loading) {
-      return "Loading...";
+      return (
+        <Centered>
+          <Spinner animation="border" role="status">
+            <span className="sr-only">Loading...</span>
+          </Spinner>
+        </Centered>
+      );
     } else {
       return this.renderPost(this.state.data);
     }

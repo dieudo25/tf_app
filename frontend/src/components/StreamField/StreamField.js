@@ -2,6 +2,7 @@ import React from "react";
 import { sanitize } from "dompurify";
 import { ThumbnailGallery } from "./ThumbnailGallery";
 import { ImageText } from "./ImageText";
+import { TwoText } from "./TwoText";
 import { ImageCarousel } from "./ImageCarousel";
 import { AnimatedSlider } from "./AnimatedSlider";
 
@@ -15,6 +16,69 @@ function StreamField(props) {
 
     // Decide which block component should be used according to the block type
     switch (field.type) {
+      case "slider":
+        let nestedSlideStreamField = field.value;
+        for (let j = 0; j < nestedSlideStreamField.length; j++) {
+          let nestedSlideField = nestedSlideStreamField[j];
+          switch (nestedSlideField.type) {
+            case "animated_slider":
+              html.push(
+                // pass field.value to the child Component props,
+                // so they would use the field.value to render HTML.
+                // The key is used to distinguish child in a list React keys
+                <AnimatedSlider
+                  value={nestedSlideField.value}
+                  key={`${i}.${j}.${nestedSlideField.type}`}
+                />
+              );
+              break;
+            case "image_slider":
+              html.push(
+                // pass field.value to the child Component props,
+                // so they would use the field.value to render HTML.
+                // The key is used to distinguish child in a list React keys
+                <ImageCarousel
+                  value={nestedSlideField.value}
+                  key={`${i}.${j}.${nestedSlideField.type}`}
+                />
+              );
+              break;
+            default:
+          }
+        }
+        break;
+      case "two_columns":
+        let nestedTwoColumnsStreamField = field.value;
+        console.log(nestedTwoColumnsStreamField);
+        for (let j = 0; j < nestedTwoColumnsStreamField.length; j++) {
+          let nestedTwoColumnsField = nestedTwoColumnsStreamField[j];
+          switch (nestedTwoColumnsField.type) {
+            case "image_text":
+              html.push(
+                // pass field.value to the child Component props,
+                // so they would use the field.value to render HTML.
+                // The key is used to distinguish child in a list React keys
+                <ImageText
+                  value={nestedTwoColumnsField.value}
+                  key={`${i}.${j}.${nestedTwoColumnsField.type}`}
+                />
+              );
+              break;
+            case "two_text":
+              html.push(
+                // pass field.value to the child Component props,
+                // so they would use the field.value to render HTML.
+                // The key is used to distinguish child in a list React keys
+                <TwoText
+                  value={nestedTwoColumnsField.value}
+                  key={`${i}.${j}.${nestedTwoColumnsField.type}`}
+                />
+              );
+              break;
+            default:
+          }
+        }
+        break;
       case "h1":
         html.push(
           <div key={`${i}.${field.type}`}>
@@ -52,22 +116,6 @@ function StreamField(props) {
           // so they would use the field.value to render HTML.
           // The key is used to distinguish child in a list React keys
           <ImageText value={field.value} key={`${i}.${field.type}`} />
-        );
-        break;
-      case "image_carousel":
-        html.push(
-          // pass field.value to the child Component props,
-          // so they would use the field.value to render HTML.
-          // The key is used to distinguish child in a list React keys
-          <ImageCarousel value={field.value} key={`${i}.${field.type}`} />
-        );
-        break;
-      case "animated_slider":
-        html.push(
-          // pass field.value to the child Component props,
-          // so they would use the field.value to render HTML.
-          // The key is used to distinguish child in a list React keys
-          <AnimatedSlider value={field.value} key={`${i}.${field.type}`} />
         );
         break;
       default:
