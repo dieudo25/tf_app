@@ -13,7 +13,7 @@ const Nav = styled.nav`
   right: 0;
 `;
 const Logo = styled.div`
-  width: 15%;
+  width: fit-content;
   float: left;
   color: #fff;
 `;

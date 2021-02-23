@@ -8,19 +8,12 @@ import styled from "styled-components";
 import { AnimatedSliderItem } from "./AnimatedSliderItem";
 
 const slick = {
-  autoplay: false,
+  autoplay: true,
   speed: 800,
   arrows: false,
   dots: true,
   fade: true,
-
-  /* infinite: true,
-  slidesToShow: 1,
-  slidesToScroll: 1,
-  autoplaySpeed: 3000,
-  lazyLoad: "ondemand",
-  cssEase: "linear",
-  swipe: true, */
+  infinite: true,
 };
 
 const bannerAreaStyle = {

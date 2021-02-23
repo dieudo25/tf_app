@@ -6,6 +6,7 @@
 #root {
   .slick-active {
     .single-banner {
+      z-index: 99;
       .banner-text {
         animation-name: slideFadeInUp;
         animation-duration: 1.2s;

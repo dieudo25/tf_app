@@ -5,7 +5,7 @@ import App from "../App";
 
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
-import { mockPost, mockTag, mockCategory } from "./mockUtils";
+import { mockPost, mockTag, mockCategory, mockHomePage } from "./mockUtils";
 
 export default {
   title: "App",
@@ -15,9 +15,10 @@ export default {
 
 export const Example = () => {
   const mock = new MockAdapter(axios);
+  mockHomePage(mock);
+  mockCategory(mock);
   mockPost(mock);
   mockTag(mock);
-  mockCategory(mock);
 
   return (
     <MemoryRouter initialEntries={["/"]}>

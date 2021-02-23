@@ -12,10 +12,12 @@ const SlideItemImgContainer = styled.div`
   width: 100%;
   height: auto;
   overflow: hidden;
+  background: #000;
 `;
 const SlideItemImg = styled.img`
   width: 100%;
   height: 100vh;
+  opacity: 0.4;
 `;
 const SlideItemText = styled.div`
   position: absolute;
@@ -27,11 +29,15 @@ const SlideItemText = styled.div`
 const SlideItemTextTitle = styled.h2`
   font-size: 55px;
   font-weight: 900;
+  font-family: "Catamaran", sans-serif;
   text-transform: uppercase;
   color: #fff;
   margin: 0;
 `;
-const slideItemTextParaph = { color: "#fff" };
+const slideItemTextParaph = {
+  color: "#fff",
+  fontFamily: '"Catamaran", sans-serif',
+};
 const SliderItemTextButtonStyle = {
   textDecoration: "none",
   background: "crimson",
