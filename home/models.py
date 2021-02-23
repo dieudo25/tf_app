@@ -1,3 +1,5 @@
+import urllib.parse
+
 from django.db import models
 
 from modelcluster.fields import ParentalKey
@@ -17,7 +19,9 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 
 from stream import blocks
 
-class HomePage(Page):
+from blog.models import BasePage
+
+class HomePage(BasePage):
     """
         Home page of the project
         parameters:
@@ -64,3 +68,13 @@ class HomePage(Page):
             serializer=serializers.DateTimeField(format="%d %B %Y", source="first_published_at")
         ),
     )
+
+    def get_preview_url(self, token):
+        return urllib.parse.urljoin(
+            self.get_client_root_url(), # return the value defined in HEADLESS_PREVIEW_CLIENT_URLS in settings.py
+            "/"
+            + "?"
+            + urllib.parse.urlencode(
+                {"content_type": self.get_content_type_str(), "token": token}
+            ),
+        )

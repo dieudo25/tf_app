@@ -1,6 +1,7 @@
 import urllib.parse
 
 from django.db import models
+from django.shortcuts import redirect
 
 from modelcluster.fields import ParentalKey
 from modelcluster.tags import ClusterTaggableManager
@@ -28,6 +29,9 @@ from stream.blocks import (
 
 class BasePage(HeadlessPreviewMixin, Page):
 
+    def serve(self, request):
+        site_id, site_root, relative_page_url = self.get_url_parts(request)
+        return redirect("http://localhost:3000" + relative_page_url)
     class Meta:
         abstract = True
 
@@ -58,6 +62,16 @@ class BlogPage(BasePage):
     parent_page_types = [
         'home.HomePage'
     ]
+
+    def get_preview_url(self, token):
+        return urllib.parse.urljoin(
+            self.get_client_root_url(), # return the value defined in HEADLESS_PREVIEW_CLIENT_URLS in settings.py
+            "/blogpage/"
+            + "?"
+            + urllib.parse.urlencode(
+                {"content_type": self.get_content_type_str(), "token": token}
+            ),
+        )
 
 
 class PostPage(BasePage):
