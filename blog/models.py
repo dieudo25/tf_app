@@ -1,3 +1,5 @@
+import urllib.parse
+
 from django.db import models
 
 from modelcluster.fields import ParentalKey
@@ -17,13 +19,19 @@ from wagtail.admin.edit_handlers import  (
 from wagtail.snippets.models import register_snippet
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.search import index
+from wagtail_headless_preview.models import HeadlessPreviewMixin
 
 from .fields import TagField, CategoryField
 from stream.blocks import (
     BodyStreamBlock
 )
 
-class BlogPage(Page):
+class BasePage(HeadlessPreviewMixin, Page):
+
+    class Meta:
+        abstract = True
+
+class BlogPage(BasePage):
     """
         Model of the BlogPage => index page of the PostPage
         parameters :
@@ -52,7 +60,7 @@ class BlogPage(Page):
     ]
 
 
-class PostPage(Page):
+class PostPage(BasePage):
     """ 
         Model of the PostPage
         Parameters :
@@ -106,6 +114,16 @@ class PostPage(Page):
         ),
         APIField("api_categories", serializer=CategoryField(source="categories")),
     )
+
+    def get_preview_url(self, token):
+        return urllib.parse.urljoin(
+            self.get_client_root_url(), # return the value defined in HEADLESS_PREVIEW_CLIENT_URLS in settings.py
+            f"post/{self.pk}/"
+            + "?"
+            + urllib.parse.urlencode(
+                {"content_type": self.get_content_type_str(), "token": token}
+            ),
+        )
 
 
 class PostPageBlogCategory(models.Model):

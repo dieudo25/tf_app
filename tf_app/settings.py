@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     "wagtail.admin",
     "wagtail.core",
     "wagtail.api.v2",
+    "wagtail_headless_preview",
     "modelcluster",
     "taggit",
 
@@ -159,3 +160,15 @@ REST_FRAMEWORK = {
 "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
 "PAGE_SIZE": 20,
 }
+
+# Wagtail Headless preview
+# Tell wagtail-headless-preview the domain of frontend app
+HEADLESS_PREVIEW_CLIENT_URLS = {
+"default": "http://localhost:3000/",
+}
+
+INTERNAL_IPS = [
+    # ...
+    '127.0.0.1',
+    # ...
+]

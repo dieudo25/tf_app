@@ -16,13 +16,33 @@ class PostDetail extends React.Component {
     // we need to send Ajax request in componentDidMount method.
     const pk = this.props.match.params.id;
 
-    axios.get(`/api/cms/pages/${pk}/`).then((res) => {
-      const post = res.data;
-      this.setState({
-        post,
-        loading: false,
-      });
+    // convert querystring to dict
+    const querystring = this.props.location.search.replace(/^\?/, "");
+    const params = {};
+    querystring.replace(/([^=&]+)=([^&]*)/g, function (m, key, value) {
+      params[decodeURIComponent(key)] = decodeURIComponent(value);
     });
+
+    if (params.token) {
+      // fetch preview data
+      axios
+        .get(`/api/cms/page_preview/${pk}/${this.props.location.search}`) // contains info about the querystring of URL
+        .then((res) => {
+          const post = res.data;
+          this.setState({
+            post,
+            loading: false,
+          });
+        });
+    } else {
+      axios.get(`/api/cms/pages/${pk}/`).then((res) => {
+        const post = res.data;
+        this.setState({
+          post,
+          loading: false,
+        });
+      });
+    }
   }
 
   render() {
