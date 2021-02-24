@@ -27,6 +27,8 @@ from stream.blocks import (
     BodyStreamBlock
 )
 
+from django.http.response import HttpResponseRedirect
+
 class BasePage(HeadlessPreviewMixin, Page):
 
     def serve(self, request):
@@ -137,6 +139,11 @@ class PostPage(BasePage):
             + urllib.parse.urlencode(
                 {"content_type": self.get_content_type_str(), "token": token}
             ),
+        )
+
+    def serve(self, request, *args, **kwargs):
+        return HttpResponseRedirect(
+            urllib.parse.urljoin(self.get_client_root_url(), f"/post/{self.pk}")
         )
 
 

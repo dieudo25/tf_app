@@ -73,7 +73,7 @@ function AnimatedSliderItem(props) {
         <div className="banner-btn">
           <Link
             style={SliderItemTextButtonStyle}
-            to={slug === "homepage" ? "/" : `/${slug}`}
+            to={slug === "homepage" ? "/" : `blogpage/${slug}`}
           >
             {props.item.button_text}
           </Link>

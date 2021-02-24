@@ -38,6 +38,8 @@ class CustomImageChooserBlock(ImageChooserBlock):
             and add a new represetation to the API field based on ImageRenditionField
         """
         return ImageRenditionField(self.rendition).to_representation(value)
+
+        
 class ImageTextBlock(blocks.StructBlock):
     """
         ImageTextBlock

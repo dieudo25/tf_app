@@ -8,4 +8,5 @@ psycopg2-binary==2.8.6
 wagtail==2.12
 wagtail-factories==2.0.1
 wagtail-headless-preview==0.1.4
+wagtailmenus
 Werkzeug==1.0.1
