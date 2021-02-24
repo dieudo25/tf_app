@@ -28,8 +28,9 @@ from stream.blocks import (
 )
 
 from django.http.response import HttpResponseRedirect
+from wagtailmenus.models import MenuPage
 
-class BasePage(HeadlessPreviewMixin, Page):
+class BasePage(HeadlessPreviewMixin, MenuPage):
 
     def serve(self, request):
         site_id, site_root, relative_page_url = self.get_url_parts(request)
