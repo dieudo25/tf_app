@@ -1,8 +1,28 @@
 import React from "react";
+
 import { Navbar, Nav, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
+import { MenuItem } from "./MenuItem";
 class TopNav extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      menu: [],
+      loading: true,
+    };
+  }
+
+  componentDidMount() {
+    axios.get(`/api/blog/menu-item/`).then((res) => {
+      this.setState({
+        menu: res.data.results,
+        loading: false,
+      });
+    });
+  }
+
   render() {
     return (
       <Navbar bg="dark" variant="dark" expand="lg" className="mb-2">
@@ -13,13 +33,13 @@ class TopNav extends React.Component {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
-              <Link to="/">Home</Link>
-              <Link to="/blogpage">News</Link>
-
-              <Nav.Link href="#">About</Nav.Link>
-              <Nav.Link href="#">Projects</Nav.Link>
-              <Nav.Link href="#">Events</Nav.Link>
-              <Nav.Link href="#">Contact</Nav.Link>
+              <ul>
+                {this.state.menu.map((item) => (
+                  <li>
+                    <MenuItem item={item} key={item.id} />
+                  </li>
+                ))}
+              </ul>
             </Nav>
           </Navbar.Collapse>
         </Container>

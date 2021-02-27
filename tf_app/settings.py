@@ -63,6 +63,7 @@ INSTALLED_APPS = [
     "home",
     "project",
     "stream",
+    "menu",
 
     'wagtail.contrib.modeladmin',
     'wagtailmenus',

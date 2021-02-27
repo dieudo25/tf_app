@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
 from wagtailmenus.models import MainMenu, FlatMenu, MainMenuItem, FlatMenuItem
+from .models import Menu, MenuItem
 
 
 class MainMenuSerializer(serializers.ModelSerializer):
@@ -22,4 +23,15 @@ class MainMenuItemSerializer(serializers.ModelSerializer):
 class FlatMenuItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = FlatMenuItem
+        fields = "__all__"
+
+
+class MenuSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Menu
+        fields = "__all__"
+
+class MenuItemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MenuItem
         fields = "__all__"

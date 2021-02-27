@@ -1,7 +1,23 @@
 from rest_framework import viewsets
 
-from wagtailmenus.models import MainMenu, FlatMenu, MainMenuItem, FlatMenuItem
-from .serializers import MainMenuSerializer, FlatMenuSerializer, MainMenuItemSerializer, FlatMenuItemSerializer
+from wagtailmenus.models import (
+    MainMenu,
+    FlatMenu, 
+    MainMenuItem, 
+    FlatMenuItem,
+)
+from .serializers import (
+    MainMenuSerializer, 
+    FlatMenuSerializer, 
+    MainMenuItemSerializer, 
+    FlatMenuItemSerializer,
+    MenuSerializer,
+    MenuItemSerializer,
+)
+from .models import (
+    Menu,
+    MenuItem,
+)
 
 class MainMenuSet(viewsets.ModelViewSet):
     serializer_class = MainMenuSerializer
@@ -24,4 +40,16 @@ class MainMenuItemSet(viewsets.ModelViewSet):
 class FlatMenuItemSet(viewsets.ModelViewSet):
     serializer_class = FlatMenuItemSerializer
     queryset = FlatMenuItem.objects.all()
+    http_method_names = ["get"]
+
+
+class MenuSet(viewsets.ModelViewSet):
+    serializer_class = MenuSerializer
+    queryset = Menu.objects.all()
+    http_method_names = ["get"]
+
+
+class MenuItemSet(viewsets.ModelViewSet):
+    serializer_class = MenuItemSerializer
+    queryset = MenuItem.objects.all()
     http_method_names = ["get"]

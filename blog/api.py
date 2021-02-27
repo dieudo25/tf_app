@@ -9,7 +9,14 @@ from wagtail_headless_preview.models import PagePreview
 from django.contrib.contenttypes.models import ContentType
 
 from .views import CategorySet, PostPageSet, TagSet
-from menu.views import MainMenuSet, FlatMenuSet, MainMenuItemSet, FlatMenuItemSet
+from menu.views import (
+    MainMenuSet, 
+    FlatMenuSet, 
+    MainMenuItemSet, 
+    FlatMenuItemSet,
+    MenuSet,
+    MenuItemSet,
+) 
 
 
 class PagePreviewAPIViewSet(PagesAPIViewSet):
@@ -61,7 +68,13 @@ blog_router = routers.DefaultRouter()
 blog_router.register(r"posts", PostPageSet)
 blog_router.register(r"categories", CategorySet)
 blog_router.register(r"tags", TagSet)
+
+# wagtailmenus
 blog_router.register(r"main-menu", MainMenuSet)
 blog_router.register(r"flat-menu", FlatMenuSet)
 blog_router.register(r"main-menu-item", MainMenuItemSet)
 blog_router.register(r"flat-menu-item", FlatMenuItemSet)
+
+# Custom menu
+blog_router.register(r"menu", MenuSet)
+blog_router.register(r"menu-item", MenuItemSet)
