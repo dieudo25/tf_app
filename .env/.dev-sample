@@ -2,9 +2,9 @@ DEBUG=1
 SECRET_KEY='%=r^l2e_+fh&$8@mk&=if)djk)f2zg1ho=9on+nts6(6e@6^yo'
 DJANGO_ALLOWED_HOSTS=*
 
-SQL_ENGINE=django.db.backends.postgresql
-SQL_DATABASE=tf_db
-SQL_USER=tf_admin
-SQL_PASSWORD=tf_2021
-SQL_HOST=db
-SQL_PORT=5432
+POSTGRES_ENGINE=django.db.backends.postgresql
+POSTGRES_DB=tf_db
+POSTGRES_USER=tf_admin
+POSTGRES_PASSWORD=tf_2021
+POSTGRES_HOST=db
+POSTGRES_PORT=5432

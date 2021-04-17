@@ -21,7 +21,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY', '%=r^l2e_+fh&$8@mk&=if)djk)f2zg1ho=9on+nts6(6e@6^yo')
+SECRET_KEY = os.environ.get(
+    'SECRET_KEY', '%=r^l2e_+fh&$8@mk&=if)djk)f2zg1ho=9on+nts6(6e@6^yo')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = int(os.environ.get("DEBUG", default=1))
@@ -107,12 +108,12 @@ WSGI_APPLICATION = 'tf_app.wsgi.application'
 
 DATABASES = {
     "default": {
-    "ENGINE": os.environ.get("SQL_ENGINE", "django.db.backends.sqlite3"),
-    "NAME": os.environ.get("SQL_DATABASE", os.path.join(BASE_DIR, "db.sqlite3")),
-    "USER": os.environ.get("SQL_USER", "user"),
-    "PASSWORD": os.environ.get("SQL_PASSWORD", "password"),
-    "HOST": os.environ.get("SQL_HOST", "localhost"),
-    "PORT": os.environ.get("SQL_PORT", "5432"),
+        "ENGINE": os.environ.get("POSTGRES_ENGINE", "django.db.backends.sqlite3"),
+        "NAME": os.environ.get("POSTGRES_DB", os.path.join(BASE_DIR, "db.sqlite3")),
+        "USER": os.environ.get("POSTGRES_USER", "user"),
+        "PASSWORD": os.environ.get("POSTGRES_PASSWORD", "password"),
+        "HOST": os.environ.get("POSTGRES_HOST", "localhost"),
+        "PORT": os.environ.get("POSTGRES_PORT", "5432"),
     }
 }
 
@@ -162,14 +163,14 @@ WAGTAIL_SITE_NAME = 'Twahifoundation'
 
 
 REST_FRAMEWORK = {
-"DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
-"PAGE_SIZE": 20,
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
+    "PAGE_SIZE": 20,
 }
 
 # Wagtail Headless preview
 # Tell wagtail-headless-preview the domain of frontend app
 HEADLESS_PREVIEW_CLIENT_URLS = {
-"default": "http://localhost:3000/",
+    "default": "http://localhost:3000/",
 }
 
 INTERNAL_IPS = [
